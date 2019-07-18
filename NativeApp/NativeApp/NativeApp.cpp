@@ -3,10 +3,48 @@
 
 #include "pch.h"
 #include <iostream>
+#include <windows.h>
+#include <thread>
+
+#define FUNC_PTR(T) T F_##T = (T)GetProcAddress(dllLib, #T); 
+
+typedef  bool(__stdcall * ValidateVersion)(float version);
+typedef  float*(__stdcall * GetBuffer)(int index);
+typedef  int(__stdcall * GetTestValue)(int index);
+
 
 int main()
 {
     std::cout << "Hello World!\n"; 
+
+    HINSTANCE dllLib = LoadLibrary(TEXT("SharedMemory.dll"));
+    if (dllLib == nullptr)
+    {
+        return -1;
+    }
+
+    FUNC_PTR(ValidateVersion);
+    FUNC_PTR(GetBuffer);
+    FUNC_PTR(GetTestValue);
+
+
+    int sentinel = F_GetTestValue(0);
+    int loopCount = 0;
+    while (sentinel == 0)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(30));
+
+        int bufferIndex = F_GetTestValue(1);
+        float* buffer = F_GetBuffer(bufferIndex);
+        for (int index = 0; index < 100; ++index)
+        {
+            buffer[index] = loopCount + index;
+        }
+
+        loopCount++;
+        sentinel = F_GetTestValue(0);
+    }
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
