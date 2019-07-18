@@ -4,10 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativeApp", "NativeApp\NativeApp.vcxproj", "{28CD770F-E074-41FB-ADF8-F76339608A8C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ADCE4454-5A2B-47A2-9600-1A798543F4CB} = {ADCE4454-5A2B-47A2-9600-1A798543F4CB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedMemory", "SharedMemory\SharedMemory.vcxproj", "{ADCE4454-5A2B-47A2-9600-1A798543F4CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetApp", "DotNetApp\DotNetApp.csproj", "{76ADC3C5-9317-42D3-9E27-5F967C4F7137}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28CD770F-E074-41FB-ADF8-F76339608A8C} = {28CD770F-E074-41FB-ADF8-F76339608A8C}
+		{ADCE4454-5A2B-47A2-9600-1A798543F4CB} = {ADCE4454-5A2B-47A2-9600-1A798543F4CB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

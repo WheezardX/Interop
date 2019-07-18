@@ -32,7 +32,7 @@ int main()
     int loopCount = 0;
     while (sentinel == 0)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(30));
+        std::this_thread::sleep_for(std::chrono::milliseconds(130));
 
         int bufferIndex = F_GetTestValue(1);
         float* buffer = F_GetBuffer(bufferIndex);
@@ -43,8 +43,11 @@ int main()
 
         loopCount++;
         sentinel = F_GetTestValue(0);
+
+        std::cout << buffer[0] << "," << bufferIndex << "\n";
     }
 
+    std::cout << "Exiting\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

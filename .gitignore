@@ -32,3 +32,6 @@
 *.app
 NativeApp/.vs/
 NativeApp/DotNetApp/obj/
+NativeApp/NativeApp/x64/
+NativeApp/SharedMemory/x64/
+NativeApp/x64/

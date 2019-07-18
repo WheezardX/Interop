@@ -28,22 +28,28 @@ namespace DotNetApp
 
 
         private Process m_process;
-        private int m_bufferIndex = 0;
-        private float[] m_buffer = new float[1000 * 1000 * 10];
+        private int m_bufferIndex = 1;
+        private float[] m_buffer = new float[100 * 100 * 4];
 
         public Form1()
         {
             InitializeComponent();
 
             bool success = ValidateVersion(1.0f);
+            SetTestValue(1, m_bufferIndex);
 
-            m_process = Process.Start("KinectHost.exe");
+            m_process = Process.Start("NativeApp.exe");
 
             this.timer1.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            this.label2.Text = GetTestValue(0).ToString();
+            this.label3.Text = GetTestValue(1).ToString();
+            this.label4.Text = GetTestValue(2).ToString();
+            this.label5.Text = GetTestValue(3).ToString();
+
             this.label1.Text = "";
             IntPtr data = GetBuffer(m_bufferIndex);
             Marshal.Copy(data, m_buffer, 0, m_buffer.Length);

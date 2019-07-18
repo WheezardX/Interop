@@ -2,11 +2,11 @@
 //
 
 #include "stdafx.h"
-
+#include "SharedMemory.h"
 
 static float kVersion = 1.0f;
 
-const int kImageSize = 1024 * 1024 * sizeof(float) * 3;
+const int kImageSize = 1000 * 100* sizeof(float);
 struct DeviceImage
 {
     int index;
@@ -20,9 +20,11 @@ struct DeviceImage
 #pragma comment(linker, "/SECTION:.shared,RWS")
 #pragma data_seg(".shared")
 float imgData[kImageSize];
-DeviceImage image;
+DeviceImage image[] = { DeviceImage {} };
 
 int testValues[] = { 0, 0, 0, 0 };
+
+DeviceImage* img1 = &(image[0]);
 
 #pragma data_seg()
 
@@ -42,7 +44,7 @@ float* GetBuffer(int index)
     }
     else
     {
-        return image.data;
+        return image[0].data;
     }
 }
 
